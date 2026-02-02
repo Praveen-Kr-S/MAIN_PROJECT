@@ -1,0 +1,49 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products List</title>
+    <link rel="stylesheet" href="{% static 'css/product.css' %}">
+</head>
+
+<body>
+    <h1>All Products Page</h1>
+    <h2><a href={% url 'add_product' %}>Add Product</a></h2>
+
+    <table>
+        <tr>
+            <th>Product name</th>
+            <th>Product Code</th>
+            <th>Price</th>
+            <th>Gst</th>
+            <th>Food Product</th>
+            <th>Edit</th>
+            <th>Remove</th>
+        </tr>
+        {% for product in products %}
+        <tr>
+            <td>{{product.product_name}}</td>
+            <td>{{product.product_code}}</td>
+            <td>{{product.price}}</td>
+            <td>{{product.gst}}</td>
+            <td>{{product.food_product}}</td>
+            <td>
+                {% if product.picture %}
+                <img src="{{product.picture.url}}" alt="mobile" width="200px" height="200px">
+                <!-- {{product.picture}} -->
+                {% else %}
+                No Picture
+                {% endif %}
+            </td>
+            <td><a href="">Update</a></td>
+            <td><a href="">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>
