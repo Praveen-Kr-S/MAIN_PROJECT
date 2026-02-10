@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% if customer_form %}
+    <h1>Customer Add Page</h1>
+    {% else %}
+    <h1>Customer Edit Page</h1>
+    {% endif %}
+
+    <h2><a href={% url 'all_customers' %}>Back</a></h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% if customer_form %}
+        {{ customer_form }}
+        {% else %}
+        {{ edit_customer_form }}
+        {% endif %}
+        <br>
+        <br>
+        {% if customer_form %}
+        <input type="submit" value="Add Customer">
+        {% else %}
+        <input type="submit" value="Edit Customer">
+        {% endif %}
+    </form>
+</body>
+
+</html>
