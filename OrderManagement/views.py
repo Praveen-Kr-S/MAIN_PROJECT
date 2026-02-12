@@ -33,7 +33,7 @@ def Delete_Customers(request, sp):
 
 
 def Add_Orders(request):
-
+    
     context = {
         'order_form':OrderForm()
     }
@@ -41,8 +41,7 @@ def Add_Orders(request):
         product_reference = Product.objects.get(id=request.POST.get('product_reference'))
         amount = float(product_reference.price) * float(request.POST.get('quantity'))
         gst_amount = (amount * float(product_reference.gst)) / 100
-        bill_amount = amount + gst_amount
-        
+        bill_amount = amount + gst_amount   
         new_order = Orders(
             customer_reference_id = request.POST['customer_reference'],
             product_reference_id = request.POST['product_reference'],
@@ -54,10 +53,36 @@ def Add_Orders(request):
             bill_amount = bill_amount
         )
         new_order.save()
-        
-
+        return redirect('all_orders')       
     return render(request,'add_orders.html',context)
 
+def All_Orders(request):
+    orders = Orders.objects.all()
+    return render(request, 'All_Orders.html', {'orders': orders})
 
+def Edit_Orders(request, sp):
+    order = Orders.objects.get(id=sp)
+    edit_order_form = OrderForm(instance=order)
+    if request.method == 'POST':
+        product_reference = Product.objects.get(id=request.POST.get('product_reference'))
+        amount = float(product_reference.price) * float(request.POST.get('quantity'))
+        gst_amount = (amount * float(product_reference.gst)) / 100
+        bill_amount = amount + gst_amount   
+        new_order = Orders(
+            customer_reference_id = request.POST['customer_reference'],
+            product_reference_id = request.POST['product_reference'],
+            order_number = request.POST['order_number'],
+            order_date = request.POST['order_date'],
+            quantity = request.POST['quantity'],
+            amount = amount,
+            gst_amount = gst_amount,
+            bill_amount = bill_amount
+        )
+        new_order.save()
+        return redirect('all_orders')
+    return render(request, 'Add_Orders.html', {'edit_order_form': edit_order_form})
 
-
+def Delete_Orders(request, sp):
+    order = Orders.objects.get(id=sp)
+    order.delete()
+    return redirect('all_orders')

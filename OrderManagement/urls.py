@@ -9,4 +9,7 @@ urlpatterns = [
     path('customers/delete/<int:sp>/', Delete_Customers, name='delete_customers'),
 
     path('order/add/', Add_Orders, name='add_orders'),
+    path('orderlist/', All_Orders, name='all_orders'),
+    path('order/edit/<int:sp>/', Edit_Orders, name='edit_orders'),
+    path('order/delete/<int:sp>/', Delete_Orders, name='delete_orders'),
 ]

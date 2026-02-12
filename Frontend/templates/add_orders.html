@@ -4,7 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if order_form %}
     <title>Add Orders</title>
+    {% else %}
+    <title>Edit Orders</title>
+    {% endif %}
 </head>
 
 <body>
