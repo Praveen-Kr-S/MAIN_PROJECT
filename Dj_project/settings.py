@@ -19,7 +19,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Inventory',
     'OrderManagement',
-    'Frontend'
+    'Frontend',
+    'bootstrap5'
 ]
 
 MIDDLEWARE = [

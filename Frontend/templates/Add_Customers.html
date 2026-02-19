@@ -1,21 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% block content %}
+{% if customer_form %}
+<h1 class="text-center fs-1  m-3 text-warning">Customer Add Page</h1>
+{% else %}
+<h1 class="text-center fs-1  m-3 text-warning">Customer Edit Page</h1>
+{% endif %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    {% if customer_form %}
-    <h1>Customer Add Page</h1>
-    {% else %}
-    <h1>Customer Edit Page</h1>
-    {% endif %}
-
-    <h2><a href={% url 'all_customers' %}>Back</a></h2>
-    <form method="post" enctype="multipart/form-data">
+<div class="container">
+    <a class="btn btn-info fs-4 float-end m-4 bg-primary text-light fw-bold" href={% url 'all_customers' %}>Back</a>
+</div>
+<br><br><br>
+<div class="container">
+    <form method="post" class="text-light fw-bolder" enctype="multipart/form-data">
         {% csrf_token %}
 
         {% if customer_form %}
@@ -26,11 +22,10 @@
         <br>
         <br>
         {% if customer_form %}
-        <input type="submit" value="Add Customer">
+        <input class="btn btn-primary" type="submit" value="Add Customer">
         {% else %}
-        <input type="submit" value="Edit Customer">
+        <input class="btn btn-primary" type="submit" value="Edit Customer">
         {% endif %}
     </form>
-</body>
-
-</html>
+</div>
+{% endblock %}

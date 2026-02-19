@@ -34,3 +34,4 @@ def DeleteProduct(request,id):
     product = Product.objects.get(id=id)
     product.delete()
     return redirect('all_products')
+

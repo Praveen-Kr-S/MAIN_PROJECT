@@ -1,25 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% block content %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% if order_form %}
-    <title>Add Orders</title>
-    {% else %}
-    <title>Edit Orders</title>
-    {% endif %}
-</head>
-
-<body>
-    {% if order_form %}
-    <h1>Orders Add Page</h1>
-    {% else %}
-    <h1>Orders Edit Page</h1>
-    {% endif %}
-
-    <h2><a href={% url 'all_customers' %}>Back</a></h2>
-    <form method="post">
+{% if order_form %}
+<h1 class="text-center fs-1  m-3 text-warning">Orders Add Page</h1>
+{% else %}
+<h1 class="text-center fs-1  m-3 text-warning">Orders Edit Page</h1>
+{% endif %}
+<div class="container">
+    <a class="btn btn-info fs-4 float-end m-4 bg-primary text-light fw-bold" href={% url 'all_customers' %}>Back</a>
+    <form class="text-light fw-bolder" method="post">
         {% csrf_token %}
 
         {% if order_form %}
@@ -30,10 +19,10 @@
         <br>
         <br>
         {% if order_form %}
-        <input type="submit" value="Add Order">
+        <input class="btn btn-primary" type="submit" value="Add Order">
         {% else %}
-        <input type="submit" value="Edit Order">
+        <input class="btn btn-primary" type="submit" value="Edit Order">
         {% endif %}
-</body>
 
-</html>
+</div>
+{% endblock %}
