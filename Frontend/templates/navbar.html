@@ -17,9 +17,11 @@
                 <li class="nav-item">
                     <a class="nav-link active text-light" href="{% url 'all_orders' %}">Orders</a>
                 </li>
+                {% if request.user.role == 1 or request.user.role == 0 %}
                 <li class="nav-item">
-                    <a class="nav-link active text-light" href="#" tabindex="-1">Create User</a>
+                    <a class="nav-link active text-light" href="{% url 'signup' %}" tabindex="-1">Create User</a>
                 </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link active text-light" href="{% url 'logout' %}" tabindex="-1">Logout</a>
                 </li>

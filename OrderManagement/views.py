@@ -2,11 +2,14 @@ from django.shortcuts import render, redirect
 from .models import Customer,Orders
 from .forms import CustomerForm,OrderForm
 from Inventory.models import Product
+from django.contrib.auth.decorators import login_required
 
+@login_required(login_url="/")
 def All_Customers(request):
     customers = Customer.objects.all()
     return render(request, 'All_Customers.html', {'customers': customers})
 
+@login_required(login_url="/")
 def Add_Customers(request):
     customer_form = CustomerForm()
     if request.method == 'POST':
@@ -15,7 +18,8 @@ def Add_Customers(request):
             customer_form.save()
             return redirect('all_customers')
     return render(request, 'Add_Customers.html', {'customer_form': customer_form})
-    
+
+@login_required(login_url="/")  
 def Edit_Customers(request, sp):
     customer = Customer.objects.get(id=sp)
     edit_customer_form = CustomerForm(instance=customer)
@@ -25,13 +29,14 @@ def Edit_Customers(request, sp):
             edit_customer_form.save()
             return redirect('all_customers')
     return render(request, 'Add_Customers.html', {'edit_customer_form': edit_customer_form})
-    
+
+@login_required(login_url="/") 
 def Delete_Customers(request, sp):
     customer = Customer.objects.get(id=sp)
     customer.delete()
     return redirect('all_customers')
 
-
+@login_required(login_url="/")
 def Add_Orders(request):
     
     context = {
@@ -56,10 +61,12 @@ def Add_Orders(request):
         return redirect('all_orders')       
     return render(request,'add_orders.html',context)
 
+@login_required(login_url="/")
 def All_Orders(request):
     orders = Orders.objects.all()
     return render(request, 'All_Orders.html', {'orders': orders})
 
+@login_required(login_url="/")
 def Edit_Orders(request, sp):
     order = Orders.objects.get(id=sp)
     edit_order_form = OrderForm(instance=order)
@@ -82,6 +89,7 @@ def Edit_Orders(request, sp):
         return redirect('all_orders')
     return render(request, 'Add_Orders.html', {'edit_order_form': edit_order_form})
 
+@login_required(login_url="/")
 def Delete_Orders(request, sp):
     order = Orders.objects.get(id=sp)
     order.delete()

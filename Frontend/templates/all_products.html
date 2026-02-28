@@ -4,9 +4,11 @@
 
 <h1 class="text-center text-warning fs-1 m-3">Products List</h1>
 <div class="container">
+    {% if request.user.role == 0 %}
     <h2><a class="btn btn-info fs-4 float-end m-4 text-light bg-primary fw-bold" href={% url 'add_product' %}>Add
             Product</a>
     </h2>
+    {% endif %}
 </div>
 
 <div class="container">
@@ -18,8 +20,10 @@
             <th>Gst</th>
             <th>Food Product</th>
             <th>Picture</th>
+            {% if request.user.role == 0 %}
             <th>Edit</th>
             <th>Remove</th>
+            {% endif %}
         </tr>
         {% for product in products %}
         <tr>
@@ -36,8 +40,10 @@
                 No Picture
                 {% endif %}
             </td>
+            {% if request.user.role == 0 %}
             <td><a class="btn btn-warning" href="{% url 'edit_product' product.id  %}">Update</a></td>
             <td><a class="btn btn-danger" href="{% url 'delete_product' product.id  %}">Delete</a></td>
+            {% endif %}
         </tr>
         {% endfor %}
     </table>

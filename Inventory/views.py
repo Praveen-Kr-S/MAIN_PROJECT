@@ -1,11 +1,14 @@
 from django.shortcuts import render,redirect
 from .models import Product
-from .forms import ProductForm 
+from .forms import ProductForm
+from django.contrib.auth.decorators import login_required
 
+@login_required(login_url="/")
 def AllProducts(request):
     products = Product.objects.all()
     return render(request, 'all_products.html', {'products': products})
 
+@login_required(login_url="/")
 def AddProduct(request):
     context = {
         'product_form': ProductForm()
@@ -17,6 +20,7 @@ def AddProduct(request):
             return redirect('all_products')
     return render(request,'add_products.html',context)
 
+@login_required(login_url="/")
 def EditProduct(request,id):
     product_form = Product.objects.get(id=id)
     context = {
@@ -30,6 +34,7 @@ def EditProduct(request,id):
     
     return render(request,'edit_product.html',context)
 
+@login_required(login_url="/")
 def DeleteProduct(request,id):
     product = Product.objects.get(id=id)
     product.delete()
