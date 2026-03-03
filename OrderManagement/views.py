@@ -74,8 +74,9 @@ def Edit_Orders(request, sp):
         product_reference = Product.objects.get(id=request.POST.get('product_reference'))
         amount = float(product_reference.price) * float(request.POST.get('quantity'))
         gst_amount = (amount * float(product_reference.gst)) / 100
-        bill_amount = amount + gst_amount   
-        new_order = Orders(
+        bill_amount = amount + gst_amount
+        order_filter = Orders.objects.filter(id =  sp) 
+        order_filter.update(
             customer_reference_id = request.POST['customer_reference'],
             product_reference_id = request.POST['product_reference'],
             order_number = request.POST['order_number'],
@@ -85,7 +86,6 @@ def Edit_Orders(request, sp):
             gst_amount = gst_amount,
             bill_amount = bill_amount
         )
-        new_order.save()
         return redirect('all_orders')
     return render(request, 'Add_Orders.html', {'edit_order_form': edit_order_form})
 
